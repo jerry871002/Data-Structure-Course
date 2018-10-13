@@ -7,7 +7,7 @@ STACK* createStack(void) {
     stack = (STACK*)malloc(sizeof(STACK));
     if(stack) {
         stack->count = 0;
-        stack->top = NULL
+        stack->top = NULL;
     }
     return stack;
 }
@@ -16,7 +16,7 @@ bool pushStack(STACK* stack, void* dataInPtr) {
     STACK_NODE* newPtr;
     newPtr = (STACK_NODE*)malloc(sizeof(STACK_NODE));
     if(!newPtr)
-        return false
+        return false;
 
     newPtr->dataPtr = dataInPtr;
 
