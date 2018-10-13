@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "stack.h"
 
-int main(int argc, char* argv[]) {
+int main(int argc, char const *argv[]) {
     FILE* inFile = fopen(argv[1], "r");
 
     STACK* stack;
@@ -26,7 +26,7 @@ int main(int argc, char* argv[]) {
             }
         }
     }
-    
+
     printf("\nThe remaining items are: ");
     while(stackCount(stack) != 0) {
         data = *((int*)popStack(stack));
