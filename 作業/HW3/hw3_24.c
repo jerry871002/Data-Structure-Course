@@ -151,5 +151,9 @@ int main(int argc, char const *argv[]) {
         currentSpot = (SPOT*)popStack(alternativeSpots);
     }
 
+    destroyStack(visitedSpots);
+    destroyStack(alternativeSpots);
+    free(currentSpot);
+    
     return 0;
 }

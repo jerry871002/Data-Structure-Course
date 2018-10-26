@@ -1,0 +1,56 @@
+==58416== Memcheck, a memory error detector
+==58416== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==58416== Using Valgrind-3.14.0 and LibVEX; rerun with -h for copyright info
+==58416== Command: ./test
+==58416== Parent PID: 51811
+==58416== 
+==58416== 
+==58416== HEAP SUMMARY:
+==58416==     in use at exit: 26,902 bytes in 184 blocks
+==58416==   total heap usage: 294 allocs, 110 frees, 36,598 bytes allocated
+==58416== 
+==58416== 8 bytes in 1 blocks are definitely lost in loss record 1 of 49
+==58416==    at 0x1000AD086: malloc (in /usr/local/Cellar/valgrind/3.14.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==58416==    by 0x1000014A3: main (hw3_24.c:66)
+==58416== 
+==58416== 24 bytes in 3 blocks are definitely lost in loss record 9 of 49
+==58416==    at 0x1000AD086: malloc (in /usr/local/Cellar/valgrind/3.14.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==58416==    by 0x1000017E2: main (hw3_24.c:120)
+==58416== 
+==58416== 24 bytes in 3 blocks are definitely lost in loss record 10 of 49
+==58416==    at 0x1000AD086: malloc (in /usr/local/Cellar/valgrind/3.14.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==58416==    by 0x100001856: main (hw3_24.c:130)
+==58416== 
+==58416== 32 bytes in 4 blocks are definitely lost in loss record 17 of 49
+==58416==    at 0x1000AD086: malloc (in /usr/local/Cellar/valgrind/3.14.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==58416==    by 0x1000015B8: main (hw3_24.c:84)
+==58416== 
+==58416== 40 bytes in 5 blocks are definitely lost in loss record 19 of 49
+==58416==    at 0x1000AD086: malloc (in /usr/local/Cellar/valgrind/3.14.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==58416==    by 0x1000016CD: main (hw3_24.c:102)
+==58416== 
+==58416== 72 bytes in 3 blocks are possibly lost in loss record 31 of 49
+==58416==    at 0x1000AD6EA: calloc (in /usr/local/Cellar/valgrind/3.14.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==58416==    by 0x1007577E2: map_images_nolock (in /usr/lib/libobjc.A.dylib)
+==58416==    by 0x10076A7DA: objc_object::sidetable_retainCount() (in /usr/lib/libobjc.A.dylib)
+==58416==    by 0x100008C64: dyld::notifyBatchPartial(dyld_image_states, bool, char const* (*)(dyld_image_states, unsigned int, dyld_image_info const*), bool, bool) (in /usr/lib/dyld)
+==58416==    by 0x100008E39: dyld::registerObjCNotifiers(void (*)(unsigned int, char const* const*, mach_header const* const*), void (*)(char const*, mach_header const*), void (*)(char const*, mach_header const*)) (in /usr/lib/dyld)
+==58416==    by 0x10022271D: _dyld_objc_notify_register (in /usr/lib/system/libdyld.dylib)
+==58416==    by 0x100757075: _objc_init (in /usr/lib/libobjc.A.dylib)
+==58416==    by 0x1001ACB34: _os_object_init (in /usr/lib/system/libdispatch.dylib)
+==58416==    by 0x1001ACB1B: libdispatch_init (in /usr/lib/system/libdispatch.dylib)
+==58416==    by 0x1000BB9C2: libSystem_initializer (in /usr/lib/libSystem.B.dylib)
+==58416==    by 0x10001AAC5: ImageLoaderMachO::doModInitFunctions(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==58416==    by 0x10001ACF5: ImageLoaderMachO::doInitialization(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==58416== 
+==58416== LEAK SUMMARY:
+==58416==    definitely lost: 128 bytes in 16 blocks
+==58416==    indirectly lost: 0 bytes in 0 blocks
+==58416==      possibly lost: 72 bytes in 3 blocks
+==58416==    still reachable: 4,296 bytes in 7 blocks
+==58416==         suppressed: 22,406 bytes in 158 blocks
+==58416== Reachable blocks (those to which a pointer was found) are not shown.
+==58416== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==58416== 
+==58416== For counts of detected and suppressed errors, rerun with: -v
+==58416== ERROR SUMMARY: 6 errors from 6 contexts (suppressed: 12 from 12)
