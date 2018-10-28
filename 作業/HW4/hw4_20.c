@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-bool isNum(char c);
+bool isNum(void* data);
 
 int main(int argc, char const *argv[]) {
     FILE* inFile = fopen("test.txt", "r");
@@ -11,64 +11,64 @@ int main(int argc, char const *argv[]) {
     char data;
     while(fscanf(inFile, "%c", &data) != EOF) {
         printf("Data read: %c\n", data);
-        if((data >= 47 && data <= 57) || data == 42 || data == 43 || data == 45) { //input only numbers and operators +, -, *, and /
+        if(data == '+' || data == '-' || data == '*' || data == '/') {
             char* dataPtr = (char*)malloc(sizeof(char));
             *dataPtr = data;
             enqueue(queue, dataPtr);
-            printf("Data in queue: %c\n", *dataPtr);
+            printf("Data in queue(char): %c\n", *dataPtr);
+        } else if(data >= '0' && data <= '9') {
+            int* dataPtr = (int*)malloc(sizeof(int));
+            *dataPtr = (int)data - 48;
+            enqueue(queue, dataPtr);
+            printf("Data in queue(int): %d\n", *dataPtr);
         }
     }
 
     printf("----------Calculating----------\n");
-    char *item;
-    char *operator, *operandOne, *operandTwo;
-    int operandOneNum, operandTwoNum;
+    void *item;
+    char *operator;
+    int *operandOne, *operandTwo;
     while(queueCount(queue) != 1) {
+        dequeue(queue, &item);
+        operator = (char*)item;
+
         queueFront(queue, &item);
-        if(isNum(*item)) {
+        if(isNum(item)) {
             dequeue(queue, &item);
-            enqueue(queue, item);
-        } else {
-            dequeue(queue, &item);
-            operator = item;
+            operandOne = (int*)item;
+
             queueFront(queue, &item);
-            if(isNum(*item)) {
+            if(isNum(item)) {
                 dequeue(queue, &item);
-                operandOne = item;
-                queueFront(queue, &item);
-                if(isNum(*item)) {
-                    dequeue(queue, &item);
-                    operandTwo = item;
-                    int* result = (int*)malloc(sizeof(int));
-                    operandOneNum = (int)(*operandOne) - 48;
-                    operandTwoNum = (int)(*operandTwo) - 48;
-                    switch (*operator) {
-                        case '+':
-                            *result = operandOneNum + operandTwoNum;
-                            break;
-                        case '-':
-                            *result = operandOneNum - operandTwoNum;
-                            break;
-                        case '*':
-                            *result = operandOneNum * operandTwoNum;
-                            break;
-                        case '/':
-                            *result = operandOneNum / operandTwoNum;
-                            break;
-                    }
-                    printf("%d %c %d = %d\n", operandOneNum, *operator, operandTwoNum, *result);
-                    free(operator);
-                    free(operandOne);
-                    free(operandTwo);
-                    enqueue(queue, result);
-                } else {
-                    enqueue(queue, operator);
-                    enqueue(queue, operandOne);
+                operandTwo = (int*)item;
+                int *result = (int*)malloc(sizeof(int));
+                switch (*operator) {
+                    case '+':
+                        *result = (*operandOne) + (*operandTwo);
+                        break;
+                    case '-':
+                        *result = (*operandOne) - (*operandTwo);
+                        break;
+                    case '*':
+                        *result = (*operandOne) * (*operandTwo);
+                        break;
+                    case '/':
+                        *result = (*operandOne) / (*operandTwo);
+                        break;
                 }
+                printf("%d %c %d = %d\n", *operandOne, *operator, *operandTwo, *result);
+                enqueue(queue, result);
+                free(operator);
+                free(operandOne);
+                free(operandTwo);
             } else {
                 enqueue(queue, operator);
+                enqueue(queue, operandOne);
             }
+        } else {
+            enqueue(queue, operator);
         }
+
     }
     int* finalResult;
     dequeue(queue, &finalResult);
@@ -80,6 +80,7 @@ int main(int argc, char const *argv[]) {
     return 0;
 }
 
-bool isNum(char c) {
-    return (c >= '0' && c <= '9');
+bool isNum(void* data) {
+    char* dataChar = (char*)data;
+    return (*dataChar != '+' && *dataChar != '-' && *dataChar != '*' && *dataChar != '/');
 }
