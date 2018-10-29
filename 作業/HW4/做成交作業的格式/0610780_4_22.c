@@ -46,6 +46,12 @@ int main(int argc, char const *argv[]) {
 
     printStats(stats);
 
+    destroyQueue(queue);
+    free(moreCusts);
+    free(status);
+    free(stats);
+    free(custNum);
+
     return 0;
 }
 
