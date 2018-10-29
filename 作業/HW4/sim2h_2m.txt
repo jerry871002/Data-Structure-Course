@@ -1,0 +1,111 @@
+Clock Time	Call Num	Arrive Time	Wait time	Start Time	Svc Time	Queue Size
+Idle at clock = 1
+         2	       1	          2	        0	         2	       1	         0
+Idle at clock = 3
+         4	       2	          4	        0	         4	       1	         0
+         5	       3	          5	        0	         5	       1	         0
+Idle at clock = 6
+Idle at clock = 7
+Idle at clock = 8
+        10	       4	          9	        0	         9	       2	         0
+Idle at clock = 11
+        13	       5	         12	        0	        12	       2	         0
+Idle at clock = 14
+Idle at clock = 15
+        16	       6	         16	        0	        16	       1	         0
+        18	       7	         17	        0	        17	       2	         1
+        19	       8	         18	        1	        19	       1	         0
+Idle at clock = 20
+        21	       9	         21	        0	        21	       1	         0
+Idle at clock = 22
+        23	      10	         23	        0	        23	       1	         0
+        25	      11	         24	        0	        24	       2	         1
+        27	      12	         25	        1	        26	       2	         1
+        28	      13	         27	        1	        28	       1	         0
+Idle at clock = 29
+        30	      14	         30	        0	        30	       1	         0
+Idle at clock = 31
+Idle at clock = 32
+Idle at clock = 33
+        34	      15	         34	        0	        34	       1	         0
+Idle at clock = 35
+        37	      16	         36	        0	        36	       2	         0
+        39	      17	         38	        0	        38	       2	         0
+Idle at clock = 40
+Idle at clock = 41
+Idle at clock = 42
+        44	      18	         43	        0	        43	       2	         1
+        45	      19	         44	        1	        45	       1	         1
+        47	      20	         45	        1	        46	       2	         1
+        49	      21	         46	        2	        48	       2	         0
+Idle at clock = 50
+Idle at clock = 51
+Idle at clock = 52
+        53	      22	         53	        0	        53	       1	         0
+        55	      23	         54	        0	        54	       2	         1
+        57	      24	         55	        1	        56	       2	         2
+        59	      25	         56	        2	        58	       2	         1
+        60	      26	         57	        3	        60	       1	         0
+Idle at clock = 61
+Idle at clock = 62
+Idle at clock = 63
+Idle at clock = 64
+        65	      27	         65	        0	        65	       1	         0
+        66	      28	         66	        0	        66	       1	         0
+        67	      29	         67	        0	        67	       1	         0
+Idle at clock = 68
+        69	      30	         69	        0	        69	       1	         0
+Idle at clock = 70
+Idle at clock = 71
+        72	      31	         72	        0	        72	       1	         0
+        74	      32	         73	        0	        73	       2	         0
+Idle at clock = 75
+Idle at clock = 76
+        78	      33	         77	        0	        77	       2	         0
+Idle at clock = 79
+Idle at clock = 80
+        82	      34	         81	        0	        81	       2	         0
+        83	      35	         83	        0	        83	       1	         0
+Idle at clock = 84
+        85	      36	         85	        0	        85	       1	         0
+Idle at clock = 86
+        87	      37	         87	        0	        87	       1	         0
+Idle at clock = 88
+Idle at clock = 89
+Idle at clock = 90
+Idle at clock = 91
+        92	      38	         92	        0	        92	       1	         0
+Idle at clock = 93
+Idle at clock = 94
+        95	      39	         95	        0	        95	       1	         0
+        97	      40	         96	        0	        96	       2	         0
+Idle at clock = 98
+Idle at clock = 99
+Idle at clock = 100
+Idle at clock = 101
+       102	      41	        102	        0	       102	       1	         0
+Idle at clock = 103
+Idle at clock = 104
+Idle at clock = 105
+       106	      42	        106	        0	       106	       1	         0
+Idle at clock = 107
+Idle at clock = 108
+Idle at clock = 109
+Idle at clock = 110
+       111	      43	        111	        0	       111	       1	         0
+Idle at clock = 112
+Idle at clock = 113
+Idle at clock = 114
+       115	      44	        115	        0	       115	       1	         0
+       117	      45	        116	        0	       116	       2	         1
+       119	      46	        117	        1	       118	       2	         0
+Idle at clock = 120
+
+Simulation Statistics:
+Total calls: 46 calls
+Total idle time: 55 minutes
+Total wait time: 14 minutes
+Total service time: 65 minutes
+Maximun queue size: 2
+Average wait time: 0.30 minutes
+Average service time: 1.41 minutes

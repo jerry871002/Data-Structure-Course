@@ -1,3 +1,4 @@
+#include "0610780_4_20.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -9,7 +10,6 @@ int main(int argc, char const *argv[]) {
 
     char data;
     while(fscanf(inFile, "%c", &data) != EOF) {
-        printf("Data read: %c\n", data);
         if(data == '+' || data == '-' || data == '*' || data == '/') {
             char* dataPtr = (char*)malloc(sizeof(char));
             *dataPtr = data;
@@ -55,7 +55,7 @@ int main(int argc, char const *argv[]) {
                 }
 
                 enqueue(queue, result);
-                
+
                 free(operator);
                 free(operandOne);
                 free(operandTwo);
@@ -70,7 +70,7 @@ int main(int argc, char const *argv[]) {
     }
     int* finalResult;
     dequeue(queue, &finalResult);
-    printf("The answer is %d.\n", *finalResult);
+    printf("%d\n", *finalResult);
 
     free(finalResult);
     destroyQueue(queue);

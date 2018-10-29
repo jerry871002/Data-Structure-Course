@@ -1,28 +1,8 @@
-#include "queue.h"
+#include "0610780_4_22.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include <stdbool.h>
-
-typedef struct {
-    int custNum;
-    int arriveTime;
-} custData;
-
-typedef struct {
-    int custNum;
-    int arriveTime;
-    int startTime;
-    int svcTime;
-} custStatus;
-
-typedef struct {
-    int numCust;
-    int totSvcTime;
-    int totWaitTime;
-    int maxQueueSize;
-    int idleTime;
-} simStats;
 
 void newCustomer(QUEUE* queue, int clock, int* custNum, int serviceProvided);
 void severFree(QUEUE* queue, int clock, custStatus* status, bool* moreCusts, int maxServiceTime);
@@ -60,10 +40,8 @@ int main(int argc, char const *argv[]) {
 
         if(!emptyQueue(queue))
             *moreCusts = true;
-        else if(clock > status->startTime + status->svcTime - 1) {
-            printf("Idle at clock = %d\n", clock);
+        else if(clock > status->startTime + status->svcTime - 1)
             (stats->idleTime)++;
-        }
     }
 
     printStats(stats);
