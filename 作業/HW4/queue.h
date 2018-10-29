@@ -23,7 +23,7 @@ bool queueFront(QUEUE* queue, void** itemPtr);
 bool queueRear(QUEUE* queue, void** itemPtr);
 int queueCount(QUEUE* queue);
 
-bool emptyQUeue(QUEUE* queue);
+bool emptyQueue(QUEUE* queue);
 bool fullQueue(QUEUE* queue);
 
 #endif

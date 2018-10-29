@@ -70,7 +70,7 @@ bool queueRear(QUEUE* queue, void** itemPtr) {
     }
 }
 
-bool emptyQUeue(QUEUE* queue) {
+bool emptyQueue(QUEUE* queue) {
     return (queue->count == 0);
 }
 
