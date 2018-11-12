@@ -104,9 +104,13 @@ bool traverse(LIST* pList, int fromWhere, void** dataOutPtr) {
         return true;
     } else {
         // start from current position
-        pList->pos = pList->pos->link;
-        *dataOutPtr = pList->pos->dataPtr;
-        return true;
+        if(pList->pos->link == NULL)
+            return false;
+        else {
+            pList->pos = pList->pos->link;
+            *dataOutPtr = pList->pos->dataPtr;
+            return true;
+        }        
     }
 }
 
@@ -121,7 +125,7 @@ bool emptyList(LIST* pList) {
 bool fullList(LIST* pList) {
     NODE* temp;
 
-    if(temp = (NODE*)malloc(sizeof(NODE))) {
+    if((temp = (NODE*)malloc(sizeof(NODE)))) {
         free(temp);
         return false;
     }
