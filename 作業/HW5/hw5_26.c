@@ -44,10 +44,8 @@ int main(int argc, char const *argv[]) {
         printf("%s: ", currentStudent->name);
 
         int sum = 0;
-        while(traverse(currentStudent->scores, (int)(currentStudent->scores->pos), &currentScore)) {
-            //printf("%d\n", *currentScore);
+        while(traverse(currentStudent->scores, (int)(currentStudent->scores->pos), &currentScore))
             sum += (*currentScore);
-        }
 
         if((currentStudent->scores->count) != 0) {
             float average = (float)sum / (currentStudent->scores->count);
