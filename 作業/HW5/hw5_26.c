@@ -17,7 +17,6 @@ int main(int argc, char const *argv[]) {
 
     char name[20];
     while(fscanf(inFile, "%[a-zA-Z ]\n", name) != EOF) {
-
         STUDENT* student = (STUDENT*)malloc(sizeof(STUDENT));
         strcpy(student->name, name);
         student->scores = createList(&scoreCompare);
@@ -33,7 +32,6 @@ int main(int argc, char const *argv[]) {
             } else
                 break;
         }
-
         addNode(stdList, student);
     }
 
