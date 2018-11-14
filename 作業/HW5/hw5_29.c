@@ -23,8 +23,11 @@ int main(int argc, char const *argv[]) {
     addPolynomial(result, polynomial1);
     addPolynomial(result, polynomial2);
 
+    printf("Polynomial 1:\n");
     printPolynomial(polynomial1);
+    printf("Polynomial 2:\n");
     printPolynomial(polynomial2);
+    printf("Result Polynomial:\n");
     printPolynomial(result);
 
     return 0;
@@ -47,7 +50,7 @@ void readPolynomial(LIST* polynomial) {
 
         addNode(polynomial, term);
     }
-    printf("Finish reading\n");
+    //printf("Finish reading\n");
 }
 
 void addPolynomial(LIST* summand, LIST* addend) {
@@ -67,9 +70,15 @@ void addPolynomial(LIST* summand, LIST* addend) {
 
 void printPolynomial(LIST* polynomial) {
     TERM* term;
-    while(traverse(polynomial, (int)(polynomial->pos), &term))
-        printf("%d*x%d+", term->coeff, term->power);
-    printf("\b");
+    while(traverse(polynomial, (int)(polynomial->pos), &term)) {
+        if(term->coeff == 0)
+            continue;
+        if((polynomial->pos != polynomial->head) && term->coeff > 0)
+            printf("+");
+        printf("%d*x%d", term->coeff, term->power);
+    }
+
     polynomial->pos = NULL;
-    printf("\nFinish printing\n");
+    printf("\n");
+    //printf("\nFinish printing\n");
 }
