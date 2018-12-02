@@ -1,7 +1,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "BST.h"
+#include "0610780_7_24.h"
 
 typedef struct {
     int num;
@@ -41,27 +41,21 @@ int compare(DATA* data1, DATA* data2) {
 }
 
 NODE* createThreaded(NODE *root) {
-    // Base cases: Tree is empty or node is leaf
     if (root == NULL)
         return NULL;
     if (root->left == NULL && root->right == NULL)
         return root;
 
-    // Find predecessor if it exists
     if (root->left != NULL) {
-        // Find predecessor of root (Rightmost child in left subtree)
         NODE* pre = createThreaded(root->left);
 
-        // Link a thread from predecessor to root.
         pre->right = root;
         ((DATA*)(pre->dataPtr))->isThread = true;
     }
 
-    // If current node is rightmost child
     if (root->right == NULL)
         return root;
 
-    // Recursive for right subtree.
     return createThreaded(root->right);
 }
 
@@ -75,16 +69,14 @@ void inOrder(NODE* root) {
     if (root == NULL)
         return;
 
-    // Find the leftmost node in Binary Tree
     NODE* current = leftMost(root);
 
     while(current != NULL) {
         printf("%d ", ((DATA*)(current->dataPtr))->num);
 
-        // If this Node is a thread Node, then go to inorder successor
         if (((DATA*)(current->dataPtr))->isThread)
             current = current->right;
-        else // Else go to the leftmost child in right subtree
+        else
             current = leftMost(current->right);
     }
     printf("\n");
