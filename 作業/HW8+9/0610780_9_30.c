@@ -10,18 +10,10 @@ int compare(int* argu1, int* argu2);
 int count;
 
 int main(int argc, char const *argv[]) {
-    //int size;
-    //printf("Please enter the heap size you wish to test: ");
-    //scanf("%d", &size);
-
-    //int* check = (int*)calloc(size, sizeof(int));
-
-
-    printf("Array Size\tReheap up\tReheap down\n");
-    int size[5] = {100, 200, 500, 1000, 2000};
+    printf("Array Size\tReheap up\tReheap down\t    O(n)\tO(log(n!))\n");
 
     srand(time(NULL));
-
+    int size[5] = {100, 200, 500, 1000, 2000};
     for(int i = 0; i < 5; i++) {
         HEAP* heap = heapCreate(size[i], &compare);
 
@@ -39,10 +31,14 @@ int main(int argc, char const *argv[]) {
         for(int j = 0; j < size[i]; j++)
             heapDelete(heap, &outNum);
 
-        printf("%11d\n", count);
+        printf("%11d\t%8d\t", count, size[i]);
+
+        double complexity = 0;
+        for(double j = 1; j <= size[i]; j++)
+            complexity += log2(j);
+
+        printf("%10.0lf\n", complexity);
     }
-
-
     return 0;
 }
 
