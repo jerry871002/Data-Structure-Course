@@ -3,7 +3,21 @@
 #include <time.h>
 #include <stdbool.h>
 #include <math.h>
-#include "heap.h"
+
+typedef struct {
+   void** heapAry;
+   int last;
+   int size;
+   int (*compare)(void* argu1, void* argu2);
+   int maxSize;
+} HEAP;
+
+HEAP* heapCreate(int maxSize, int (*compare)(void* arg1, void* arg2));
+bool heapInsert(HEAP* heap, void* dataPtr);
+bool heapDelete(HEAP* heap, void** dataOutPtr);
+
+static void _reheapUp(HEAP* heap, int childLoc);
+static void _reheapDown(HEAP* heap, int root);
 
 int compare(int* argu1, int* argu2);
 
@@ -102,7 +116,6 @@ bool heapDelete(HEAP* heap, void** dataOutPtr) {
 }
 
 static void _reheapUp(HEAP* heap, int childLoc) {
-    //count++;
     int parent;
     void** heapAry;
     void* hold;
@@ -121,7 +134,6 @@ static void _reheapUp(HEAP* heap, int childLoc) {
 }
 
 static void _reheapDown(HEAP* heap, int root) {
-    //count++;
     void* hold;
     void* leftData;
     void* rightData;
