@@ -20,9 +20,6 @@ int main() {
     while(1) {
         char* data = (char*)malloc(sizeof(char));
         fscanf(inFile, " %c", data);
-        //=====test=====
-        printf("!!%c\n", *data);
-        //=====test=====
         if(*data == '.') {
             free(data);
             break;
@@ -35,22 +32,13 @@ int main() {
         char dataFrom;
         char dataTo;
         int weight;
-        if(fscanf(inFile, " %c %c %d", &dataFrom, &dataTo, &weight) != EOF) {
-            //=====test=====
-            printf("%c %c %d\n", dataFrom, dataTo, weight);
-            //=====test=====
+        if(fscanf(inFile, " %c %c %d", &dataFrom, &dataTo, &weight) != EOF)
             graphInsArc(graph, &dataFrom, &dataTo, weight);
-        } else
+        else
             break;
     }
 
     fclose(inFile);
-
-    //=====test=====
-    printf("%c\n", *((char*)(graph->first->dataPtr)));
-    printf("%c\n", *((char*)(graph->first->pNextVertex->dataPtr)));
-    printf("%c %d\n", *((char*)(graph->first->pArc->destination->dataPtr)), graph->first->pArc->weight);
-    //=====test=====
 
     printf("Show original tree:\n");
     vertexPtr = graph->first;
