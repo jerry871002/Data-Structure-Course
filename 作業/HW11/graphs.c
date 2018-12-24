@@ -1,9 +1,21 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "graphs.h"
+#include "stack.h"
+#include "queue.h"
 
-GRAPH* graphCreate(int (*compare)(void* argu1, void* argu2));
-GRAPH* graphDestroy(GRAPH* graph);
+GRAPH* graphCreate(int (*compare)(void* argu1, void* argu2)) {
+    GRAPH* graph;
+    graph = (GRAPH*)malloc(sizeof(GRAPH));
+    if(graph) {
+        graph->count = 0;
+        graph->first = NULL;
+        graph->compare = compare;
+    }
+    return graph;
+}
+
+//GRAPH* graphDestroy(GRAPH* graph);
 
 // Graph Insert Vertex
 void graphInsVrtx(GRAPH* graph, void* dataInPtr) {
@@ -90,7 +102,7 @@ int graphDltVrtx(GRAPH* graph, void* dltKey) {
             -2 if fromKey not found
             -3 if toKey not found
 */
-int graphInsArc(GRAPH* graph, void* pFromKey, void* pToKey) {
+int graphInsArc(GRAPH* graph, void* pFromKey, void* pToKey, int weight) {
     ARC* newPtr;
     ARC* arcPredPtr;
     ARC* arcWalkPtr;
@@ -125,6 +137,7 @@ int graphInsArc(GRAPH* graph, void* pFromKey, void* pToKey) {
         // Inserting first arc for this vertex
         vertFromPtr->pArc = newPtr;
         newPtr->pNextArc = NULL;
+        newPtr->weight = weight;
         return 1;
     }
     // Find insertion point in adjacency (arc) list
@@ -142,6 +155,7 @@ int graphInsArc(GRAPH* graph, void* pFromKey, void* pToKey) {
         arcPredPtr->pNextArc = newPtr;
 
     newPtr->pNextArc = arcWalkPtr;
+    newPtr->weight = weight;
     return 1;
 }
 
@@ -161,32 +175,32 @@ int graphDltArc(GRAPH* graph, void* pFromKey, void* pToKey) {
 
     // Locate source vertex
     fromVertexPtr = graph->first;
-    while(fromVertexPtr && (graph->compare(fromKey, fromVertexPtr->dataPtr) > 0))
+    while(fromVertexPtr && (graph->compare(pFromKey, fromVertexPtr->dataPtr) > 0))
         fromVertexPtr = fromVertexPtr->pNextVertex;
 
-    if(!fromVertexPtr || (graph->compare(fromKey, fromVertexPtr->dataPtr) != 0))
+    if(!fromVertexPtr || (graph->compare(pFromKey, fromVertexPtr->dataPtr) != 0))
         return -2;
 
-    // Locate destination verttex
+    // Locate destination vertex
     if(fromVertexPtr->pArc)
         return -3;
 
     preArcPtr = NULL;
     arcWalkPtr = fromVertexPtr->pArc;
 
-    while(arcWalkPtr && (graph->compare(toKey, arcWalkPtr->destination->dataPtr) > 0)) {
+    while(arcWalkPtr && (graph->compare(pToKey, arcWalkPtr->destination->dataPtr) > 0)) {
         preArcPtr = arcWalkPtr;
         arcWalkPtr = arcWalkPtr->pNextArc;
     }
 
-    if(!arcWalkPtr || (graph->compare(toKey, arcWalkPtr->destination->dataPtr) > 0))
+    if(!arcWalkPtr || (graph->compare(pToKey, arcWalkPtr->destination->dataPtr) > 0))
         return -3;
 
-    toVertexPtr = arcWalkPtr = destination;
+    toVertexPtr = arcWalkPtr->destination;
 
     //from, toVertex & arcPtr located. Delete arc
     (fromVertexPtr->outDegree)--;
-    (toVertex->inDegree)--;
+    (toVertexPtr->inDegree)--;
     if(!preArcPtr)
         // Deleting first arc
         fromVertexPtr->pArc = arcWalkPtr->pNextArc;
@@ -196,8 +210,8 @@ int graphDltArc(GRAPH* graph, void* pFromKey, void* pToKey) {
     return 1;
 }
 
-int graphRetrVrtx(GRAPH* graph, void* pKey, void** pDataOut);
-int graphFrstArc(GRAPH* graph, void* pKey, void** pDataOut);
+//int graphRetrVrtx(GRAPH* graph, void* pKey, void** pDataOut);
+//int graphFrstArc(GRAPH* graph, void* pKey, void** pDataOut);
 
 /*
     Processed Flag: 0 = not processed
@@ -206,15 +220,120 @@ int graphFrstArc(GRAPH* graph, void* pKey, void** pDataOut);
 */
 void graphDpthFrst(GRAPH* graph, void (*process)(void* dataPtr)) {
     bool success;
-    VERTEX* wlakPtr;
+    VERTEX* walkPtr;
     VERTEX* vertexPtr;
     VERTEX* vertToPtr;
     STACK* stack;
     ARC* arcWalkPtr;
+
+    if(!graph->first)
+        return;
+
+    // Set processed flags to not processed
+    walkPtr = graph->first;
+    while(walkPtr) {
+        walkPtr->processed = 0;
+        walkPtr = walkPtr->pNextVertex;
+    }
+
+    // Process each vertex in list
+    stack = createStack();
+    walkPtr = graph->first;
+    while(walkPtr) {
+        if(walkPtr->processed == 0) {
+            // Push & set flag to pushed
+            success = pushStack(stack, walkPtr);
+            if(!success) {
+                printf("\aStack overflow\a\n");
+                exit(100);
+            }
+            walkPtr->processed = 1;
+        }
+
+        // Process descendents of vertex at stack top
+        while(!emptyStack(stack)) {
+            vertexPtr = popStack(stack);
+            process(vertexPtr->dataPtr);
+            vertexPtr->processed = 2;
+
+            // Push all vertices from adjacency list
+            arcWalkPtr = vertexPtr->pArc;
+            while(arcWalkPtr) {
+                vertToPtr = arcWalkPtr->destination;
+                if(vertToPtr->processed == 0) {
+                    success = pushStack(stack, vertToPtr);
+                    if(!success) {
+                        printf("\aStack overflow\a\n");
+                        exit(100);
+                    }
+                    vertToPtr->processed = 1;
+                }
+                arcWalkPtr = arcWalkPtr->pNextArc;
+            }
+        }
+        walkPtr = walkPtr->pNextVertex;
+    }
+    destroyStack(stack);
 }
 
-void graphBrdthFrst(GRAPH* graph, void (*process)(void* dataPtr));
+void graphBrdthFrst(GRAPH* graph, void (*process)(void* dataPtr)) {
+    bool success;
+    VERTEX* walkPtr;
+    VERTEX* vertexPtr;
+    VERTEX* vertToPtr;
+    QUEUE* queue;
+    ARC* arcWalkPtr;
 
-bool graphEmpty(GRAPH* graph);
-bool graphFull(GRAPH* graph);
-int graphCount(GRAPH* graph);
+    if(!graph->first)
+        return;
+
+    // Set processed flags to not processed
+    walkPtr = graph->first;
+    while(walkPtr) {
+        walkPtr->processed = 0;
+        walkPtr = walkPtr->pNextVertex;
+    }
+
+    // Process each vertex in list
+    queue = createQueue();
+    walkPtr = graph->first;
+    while(walkPtr) {
+        if(walkPtr->processed == 0) {
+            // Push & set flag to pushed
+            success = enqueue(queue, walkPtr);
+            if(!success) {
+                printf("\aStack overflow\a\n");
+                exit(100);
+            }
+            walkPtr->processed = 1;
+        }
+
+        // Process descendents of vertex at stack top
+        while(!emptyQueue(queue)) {
+            dequeue(queue, (void**)&vertexPtr);
+            process(vertexPtr->dataPtr);
+            vertexPtr->processed = 2;
+
+            // Enqueue all vertices from adjacency list
+            arcWalkPtr = vertexPtr->pArc;
+            while(arcWalkPtr) {
+                vertToPtr = arcWalkPtr->destination;
+                if(vertToPtr->processed == 0) {
+                    success = enqueue(queue, vertToPtr);
+                    if(!success) {
+                        printf("\aStack overflow\a\n");
+                        exit(100);
+                    }
+                    vertToPtr->processed = 1;
+                }
+                arcWalkPtr = arcWalkPtr->pNextArc;
+            }
+        }
+        walkPtr = walkPtr->pNextVertex;
+    }
+    destroyQueue(queue);
+}
+
+//bool graphEmpty(GRAPH* graph);
+//bool graphFull(GRAPH* graph);
+//int graphCount(GRAPH* graph);
