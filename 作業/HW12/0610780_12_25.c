@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define MAX 500
+#define MAX 100
 
 void merge(int arr[], int left, int mid, int right);
 void mergeSort(int arr[], int left, int right);
@@ -34,7 +34,7 @@ int main() {
 // Merges two subarrays of arr[]
 // First subarray is arr[left...mid]
 // Second subarray is arr[mid+1...right]
-void merge(int arr[], int left, int mid, int right)  {
+void merge(int arr[], int left, int mid, int right) {
     int i, j, k;
     int leftCount = mid - left + 1;
     int rightCount = right - mid;
