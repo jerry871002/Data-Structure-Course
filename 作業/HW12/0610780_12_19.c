@@ -15,7 +15,7 @@ int main() {
 
     int numbers[MAX] = {0};
 
-    printf("Before sorting: ");
+    printf("Array before sorting:\n");
     for(int i = 0; i < MAX; i++) {
         numbers[i] = rand() % MAX;
         printf("%d ", numbers[i]);
@@ -23,11 +23,11 @@ int main() {
 
     quickSort(numbers, 0, MAX-1);
 
-    printf("\n\nAfter sorting: ");
+    printf("\n\nArray after sorting:\n");
     for(int i = 0; i < MAX; i++)
         printf("%d ", numbers[i]);
 
-    printf("\n\nTotal swaps: %d\n", swapCount);
+    printf("\n\nTotal data moves: %d\n", swapCount);
 
     return 0;
 }
