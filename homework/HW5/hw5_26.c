@@ -1,3 +1,5 @@
+// Usage: <executable> student_name.txt < student_score.txt
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>

@@ -1,3 +1,5 @@
+// Usage: <executable> stock.txt
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -18,7 +20,7 @@ int compareGainDecre(STOCK* stock1, STOCK* stock2);
 void display(LIST* list);
 
 int main(int argc, char const *argv[]) {
-    FILE* inFile = fopen("test.txt", "r");
+    FILE* inFile = fopen(argv[1], "r");
 
     LIST* codeIncrease = createList(&compareCodeIncre);
     LIST* codeDecrease = createList(&compareCodeDecre);

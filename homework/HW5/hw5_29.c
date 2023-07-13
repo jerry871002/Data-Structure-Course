@@ -1,3 +1,5 @@
+// Usage: <executable> < polynomial.txt
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "list.h"
