@@ -52,7 +52,6 @@ void readPolynomial(LIST* polynomial) {
 
         addNode(polynomial, term);
     }
-    //printf("Finish reading\n");
 }
 
 void addPolynomial(LIST* summand, LIST* addend) {
@@ -82,5 +81,4 @@ void printPolynomial(LIST* polynomial) {
 
     polynomial->pos = NULL;
     printf("\n");
-    //printf("\nFinish printing\n");
 }

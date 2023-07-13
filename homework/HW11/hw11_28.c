@@ -20,7 +20,6 @@ int main() {
     while(1) {
         char* data = (char*)malloc(sizeof(char) * 20);
         fscanf(inFile, "%s", data);
-        //printf("%s\n", data);
         if(strcmp(data, ".") == 0) {
             free(data);
             break;
@@ -33,10 +32,9 @@ int main() {
         char dataFrom[20];
         char dataTo[20];
         int weight;
-        if(fscanf(inFile, "%s %s %d", dataFrom, dataTo, &weight) != EOF) {
-            //printf("%s %s %d\n", dataFrom, dataTo, weight);
+        if(fscanf(inFile, "%s %s %d", dataFrom, dataTo, &weight) != EOF)
             graphInsArc(graph, dataFrom, dataTo, weight);
-        } else
+        else
             break;
     }
 
@@ -126,7 +124,6 @@ void shortestPath(GRAPH* graph, void* startKey) {
     }
     else {
         vertexStart = vertexPtr;
-        //printf("Start position found: %c\n", *((char*)(vertexStart->dataPtr)));
     }
 
     // Derive minimum path tree
@@ -173,7 +170,6 @@ void shortestPath(GRAPH* graph, void* startKey) {
                 vertexPtr = graph->first;
         }
         if(pathLoc) {
-            //printf("!!!%c\n", *((char*)(pathLoc->destination->dataPtr)));
             pathLoc->inTree = true;
             pathLoc->destination->inTree = true;
             pathLoc->destination->pathLength = newPathLen;
