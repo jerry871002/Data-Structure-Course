@@ -1,3 +1,5 @@
+// Usage: <executable> phone_numbers.txt
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -13,7 +15,7 @@ void print_contact(CONTACT* contact);
 void write_back(CONTACT* contact);
 
 int main(int argc, char const *argv[]) {
-    FILE* inFile = fopen("input_7_22.txt", "r");
+    FILE* inFile = fopen(argv[1], "r");
     BST_TREE* contacts = BST_Create(&compare_contact);
 
     char name[10], number[15];
