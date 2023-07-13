@@ -6,8 +6,6 @@ void* larger (void* dataPtr1, void* dataPtr2, int (*ptrToCmpFun)(void*, void*));
 
 int main (void)
 {
-    //int i = 7;
-    //int j = 8;
     char* a = "abc";
     char* b = "abc ";
     char* lrg;

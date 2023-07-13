@@ -1,3 +1,5 @@
+// Usage: <executable> students.txt
+
 #include <stdio.h>
 #include <stdlib.h>
 
