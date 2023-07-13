@@ -53,7 +53,7 @@ int main(int argc, char const *argv[]) {
         int count = 0;
         bool check;
 
-        //up
+        // up
         check = true;
         if(maze[(currentSpot->row)-1][currentSpot->col] == 1)
             check = false;
@@ -68,10 +68,9 @@ int main(int argc, char const *argv[]) {
             upSpot->col = currentSpot->col;
             pushStack(alternativeSpots, upSpot);
             count++;
-            //printf("**Push up**");
         }
 
-        //right
+        // right
         check = true;
         if(maze[currentSpot->row][(currentSpot->col)+1] == 1)
             check = false;
@@ -86,10 +85,9 @@ int main(int argc, char const *argv[]) {
             rightSpot->col = (currentSpot->col)+1;
             pushStack(alternativeSpots, rightSpot);
             count++;
-            //printf("**Push right**");
         }
 
-        //down
+        // down
         check = true;
         if(maze[(currentSpot->row)+1][currentSpot->col] == 1)
             check = false;
@@ -104,10 +102,9 @@ int main(int argc, char const *argv[]) {
             downSpot->col = currentSpot->col;
             pushStack(alternativeSpots, downSpot);
             count++;
-            //printf("**Push down**");
         }
 
-        //left
+        // left
         check = true;
         if(maze[currentSpot->row][(currentSpot->col)-1] == 1)
             check = false;
@@ -122,10 +119,8 @@ int main(int argc, char const *argv[]) {
             leftSpot->col = (currentSpot->col)-1;
             pushStack(alternativeSpots, leftSpot);
             count++;
-            //printf("**Push left**");
         }
 
-        //printf("**count is %d**", count);
         if(count > 1) {
             SPOT* decisionSpot = (SPOT*)malloc(sizeof(SPOT));
             decisionSpot->row = -1;
