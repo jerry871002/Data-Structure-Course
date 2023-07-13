@@ -12,7 +12,7 @@ int main() {
     VERTEX* vertexPtr;
     ARC* arcWalkPtr;
 
-    FILE* inFile = fopen("inGraph.txt", "r");
+    FILE* inFile = fopen("graph.txt", "r");
 
     GRAPH* graph = graphCreate(&compare);
 
